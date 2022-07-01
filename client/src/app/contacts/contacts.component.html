@@ -1,0 +1,22 @@
+<div class="container-fluid">
+    <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">Prénom</th>
+            <th scope="col">Nom</th>
+            <th scope="col">Numéro de téléphone</th>
+            <th scope="col">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+                <tr *ngFor="let contact of contacts" >
+                    <td>{{contact.first_name}}</td>
+                    <td>{{contact.last_name}}</td>
+                    <td>{{contact.phone_number}}</td>
+                    <td>
+                        <input type="button" (click)="deleteContact(contact._id)" value = "Delete" class="btn btn-danger">
+                    </td>
+                  </tr>
+        </tbody>
+      </table>
+</div>

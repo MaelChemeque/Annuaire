@@ -1,0 +1,29 @@
+<div class="container pt-5">
+    <form (submit)="addContact()">
+
+        <div class="form-group">
+            <label for="">Prénom</label>
+        <input type = "text" [(ngModel)] = "first_name" name = "firstname" class="form-control">
+        <div class="alert-warning rounded" id="firstNameError"></div>
+    </div>
+    <div class="form-group">
+        <label for="">Nom</label>
+        <input type="text" [(ngModel)] = "last_name" name="lastname" class="form-control">
+        <div class="alert-warning rounded" id="lastNameError"></div>
+    </div>
+    <div class="form-group">
+        <label for="">Numéro de téléphone</label>
+        <input type="text" [(ngModel)] = "phone_number" name="phonenumber" class="form-control">
+        <div class="alert-warning rounded" id="phoneNumberError"></div>
+        
+    </div>
+    <div class="text-center">
+
+        <input type="submit" class="btn btn-success mb-3" value="Ajouter le contact">
+    </div>
+    <div class="alert alert-success hide" id="contactAdded"></div>
+    <script>
+        $('#contactAdded').hide();
+    </script>
+</form>
+</div>

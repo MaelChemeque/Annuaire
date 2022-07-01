@@ -1,0 +1,18 @@
+<form class="form-inline my-2 my-lg-0">
+  <input
+    class="form-control mr-sm-2"
+    type="search"
+    placeholder="Rechercher"
+    aria-label="Search"
+    id="searchField"
+  />
+  <button
+    class="btn btn-outline-success my-2 my-sm-0"
+    type="submit"
+    (click)="searchContact()"
+  >
+    Rechercher un contact
+  </button>
+</form>
+<div *ngFor="let contact of contacts"> {{this.contact.last_name}}</div>
+
