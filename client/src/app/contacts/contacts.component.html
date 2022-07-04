@@ -1,22 +1,51 @@
 <div class="container-fluid">
   <table class="table">
-      <thead>
-        <tr>
-          <th scope="col">Prénom</th>
-          <th scope="col">Nom</th>
-          <th scope="col">Numéro de téléphone</th>
-          <th scope="col">Action</th>
-        </tr>
-      </thead>
-      <tbody>
-              <tr *ngFor="let contact of contacts" >
-                  <td>{{contact.first_name}}</td>
-                  <td>{{contact.last_name}}</td>
-                  <td>{{contact.phone_number}}</td>
-                  <td>
-                      <input type="button" (click)="deleteContact(contact._id)" value = "Delete" class="btn btn-danger">
-                  </td>
-                </tr>
-      </tbody>
-    </table>
+    <thead>
+      <tr>
+        <th scope="col" class="text-center">Prénom</th>
+        <th scope="col" class="text-center">Nom</th>
+        <th scope="col" class="text-center">Numéro de téléphone</th>
+        <th scope="col" class="text-center">Adresse mail</th>
+        <th scope="col" class="text-center">Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let contact of contacts">
+        <ng-container *ngIf="this.name === '' || contact.first_name.toLowerCase().startsWith(this.name.toLowerCase())">
+          <td class="tableField">{{ contact.first_name }}</td>
+          <td class="tableField">{{ contact.last_name }}</td>
+          <td class="tableField">{{ contact.phone_number }}</td>
+          <div
+            *ngIf="
+              contact.email !== undefined && contact.email !== '';
+              then mailNotEmptyContent;
+              else mailEmptyContent
+            "
+          ></div>
+          <ng-template #mailNotEmptyContent
+            ><td class="tableField">
+              {{ contact.email }}
+            </td></ng-template
+          >
+          <ng-template #mailEmptyContent
+            ><td class="tableField">---</td></ng-template
+          >
+          <td class="tableField">
+            <input
+              type="button"
+              (click)="updateContact(contact._id)"
+              value="Modifier"
+              class="btn btn-info mr-3"
+            />
+            <input
+              type="button"
+              (click)="deleteContact(contact._id)"
+              value="Supprimer"
+              class="btn btn-danger"
+            />
+          </td>
+        </ng-container>
+      </tr>
+    </tbody>
+  </table>
 </div>

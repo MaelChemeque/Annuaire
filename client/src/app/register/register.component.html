@@ -12,6 +12,12 @@
         <div class="alert-warning rounded" id="lastNameError"></div>
     </div>
     <div class="form-group">
+        <label for="">Email</label>
+        <input type="text" [(ngModel)] = "email" name="email" class="form-control">
+        <div class="alert-warning rounded" id="emailError"></div>
+        
+    </div>
+    <div class="form-group">
         <label for="">Numéro de téléphone</label>
         <input type="text" [(ngModel)] = "phone_number" name="phonenumber" class="form-control">
         <div class="alert-warning rounded" id="phoneNumberError"></div>

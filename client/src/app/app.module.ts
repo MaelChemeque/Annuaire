@@ -12,6 +12,7 @@ import { appRoutingModule } from './app-routing.module';
 import { HeaderComponent } from './header/header.component';
 import { RegisterComponent } from './register/register.component';
 import { RouterModule } from '@angular/router';
+import { ModalComponent } from './modal/modal.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { RouterModule } from '@angular/router';
     ContactsComponent,
     FindContactsComponent,
     HeaderComponent,
-    RegisterComponent
+    RegisterComponent,
+    ModalComponent
   ],
   imports: [
     BrowserModule,

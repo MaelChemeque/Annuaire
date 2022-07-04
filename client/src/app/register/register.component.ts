@@ -19,6 +19,7 @@ export class RegisterComponent implements OnInit {
   first_name!: string;
   last_name!: string;
   phone_number!: string;
+  email!: string;
   constructor(private contactService: ContactService, private router: Router) { }
 
   ngOnInit(): void {
@@ -51,7 +52,8 @@ export class RegisterComponent implements OnInit {
     const newContact = {
       first_name: this.first_name,
       last_name: this.last_name,
-      phone_number: this.phone_number
+      phone_number: this.phone_number,
+      email: this.email
     };
     this.contactService.addContact(newContact).subscribe(contact => {
       this.contacts.push(contact);
@@ -71,9 +73,11 @@ export class RegisterComponent implements OnInit {
     let firstNameId = <HTMLInputElement>document.getElementById("firstNameError");
     let lastNameId = <HTMLInputElement>document.getElementById("lastNameError");
     let phoneNumberId = <HTMLInputElement>document.getElementById("phoneNumberError");
+    let emailId = <HTMLInputElement>document.getElementById("emailError");
     this.checkStringIsFilled(this.first_name, firstNameId) ? filled = filled : filled = false;
     this.checkStringIsFilled(this.last_name, lastNameId) ? filled = filled : filled = false;
     this.checkNumberIsFilled(this.phone_number, phoneNumberId) ? filled = filled : filled = false;
+    this.checkFieldIsEmail(this.email, emailId) ? filled = filled : filled = false;
     return filled;
   }
   checkStringIsFilled(field: string, id: HTMLInputElement): boolean {
@@ -115,12 +119,13 @@ export class RegisterComponent implements OnInit {
     }
     return true;
   }
-    checkFieldIsEmail(field: string, id: HTMLInputElement): boolean {
-      if (!(/^([\w\.]*)/).test(field)) {
-        id.innerHTML = "Ce champ n'est pas un numéro de téléphone valide";
-        return false;
-      }
-      return true;
+  checkFieldIsEmail(field: string, id: HTMLInputElement): boolean {
+    if (!(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(field)) && field !== "" && field !== undefined) {
+      id.innerHTML = "Cette adresse mail n'est pas valide";
+      return false;
     }
-
+    id.innerHTML = "";  
+    return true;
   }
+
+}

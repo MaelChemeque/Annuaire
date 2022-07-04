@@ -22,14 +22,9 @@ export class ContactsComponent implements OnInit {
 
   
   ngOnInit(): void {
-
-    if (this.name === undefined || this.name === "" || this.name === null){
       this.contactService.getContacts().subscribe(contacts => {
-        this.contacts = contacts;
+        this.contacts = contacts.sort((a,b) => a.first_name.localeCompare(b.first_name));
       });
-    } else {
-      this.searchContact(this.name);
-    }
   }
 
   deleteContact(contactId: string | undefined): void {
@@ -46,8 +41,11 @@ export class ContactsComponent implements OnInit {
     }
     this.redirectTo('contacts');
   }
+  updateContact(contactId: string | undefined): void {
+    // TODO
+  }
   
-
+  // this method allows to search in the database by a first_name calling a service
   searchContact(name: string){
     this.contactService.searchContact(name).subscribe(contacts => {
       this.contacts = contacts;
