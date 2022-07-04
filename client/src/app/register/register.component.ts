@@ -5,6 +5,7 @@ import { ContactService } from '../services/contact.service';
 import * as $ from 'jquery';
 
 
+
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
@@ -86,7 +87,7 @@ export class RegisterComponent implements OnInit {
   checkNumberIsFilled(field: string, id: HTMLInputElement): boolean {
     if (!this.checkFieldIsNotEmpty(field, id)) 
       return false;
-    if (!this.checkFieldIsNumber(field, id))
+    if (!this.checkFieldIsPhoneNumber(field, id))
       return false;
     id.innerHTML = "";
     return true;
@@ -100,17 +101,26 @@ export class RegisterComponent implements OnInit {
     return true;
   }
   checkFieldIsLetters(field: string, id: HTMLInputElement): boolean {
-    if (!(/^[a-zA-Z]+$/.test(field))) {
+
+    if (!(/^[a-zA-Z\u00C0-\u017F]+$/.test(field))) {
       id.innerHTML = "Ce champ doit contenir uniquement des lettres";
       return false;
     }
     return true;
   }
-  checkFieldIsNumber(field: string, id: HTMLInputElement): boolean {
-    if (!(/^[0-9]+$/.test(field))) {
-      id.innerHTML = "Ce champ doit contenir uniquement des chiffres";
+  checkFieldIsPhoneNumber(field: string, id: HTMLInputElement): boolean {
+    if (!(/1?[\s-]?\(?(\d{3})\)?[\s-]?\d{3}[\s-]?\d{4}/).test(field)) {
+      id.innerHTML = "Ce champ n'est pas un numéro de téléphone valide";
       return false;
     }
     return true;
   }
-}
+    checkFieldIsEmail(field: string, id: HTMLInputElement): boolean {
+      if (!(/^([\w\.]*)/).test(field)) {
+        id.innerHTML = "Ce champ n'est pas un numéro de téléphone valide";
+        return false;
+      }
+      return true;
+    }
+
+  }
