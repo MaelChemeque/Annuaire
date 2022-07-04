@@ -11,7 +11,7 @@ router.get('/contacts', (req, res, next) => {
     });
 });
 router.get('/contact/:name', (req, res, next) => {
-    Contact.find({ first_name: req.params.name}, function(err, contacts) {
+    Contact.find({ first_name: {'$regex': '.*'+req.params.name+'.*'}}, function(err, contacts) {
         console.log('got list of contacts');
         res.json(contacts);
     });
