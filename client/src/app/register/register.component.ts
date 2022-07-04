@@ -67,23 +67,50 @@ export class RegisterComponent implements OnInit {
 
   checkFieldAreFilled(): boolean{
     let filled = true;
-    let firstNameId = document.getElementById("firstNameError");
-    let lastNameId = document.getElementById("lastNameError");
-    let phoneNumberId = document.getElementById("phoneNumberError");
-    this.checkFieldIsFilled(this.first_name, firstNameId) ? filled = filled : filled = false;
-    this.checkFieldIsFilled(this.last_name, lastNameId) ? filled = filled : filled = false;
-    this.checkFieldIsFilled(this.phone_number, phoneNumberId) ? filled = filled : filled = false;
+    let firstNameId = <HTMLInputElement>document.getElementById("firstNameError");
+    let lastNameId = <HTMLInputElement>document.getElementById("lastNameError");
+    let phoneNumberId = <HTMLInputElement>document.getElementById("phoneNumberError");
+    this.checkStringIsFilled(this.first_name, firstNameId) ? filled = filled : filled = false;
+    this.checkStringIsFilled(this.last_name, lastNameId) ? filled = filled : filled = false;
+    this.checkNumberIsFilled(this.phone_number, phoneNumberId) ? filled = filled : filled = false;
     return filled;
   }
-  checkFieldIsFilled(field: string, id: HTMLElement | null): boolean {
-    if (id === null) return false;
-    if (field === undefined || field === ""){
-        id.innerHTML = "Ce champ doit être renseigné";
-        return false;
-    }
-    else 
+  checkStringIsFilled(field: string, id: HTMLInputElement): boolean {
+    if (!this.checkFieldIsNotEmpty(field, id)) 
+      return false;
+    if (!this.checkFieldIsLetters(field, id))
+      return false;
       id.innerHTML = "";
       return true;
   }
-
+  checkNumberIsFilled(field: string, id: HTMLInputElement): boolean {
+    if (!this.checkFieldIsNotEmpty(field, id)) 
+      return false;
+    if (!this.checkFieldIsNumber(field, id))
+      return false;
+    id.innerHTML = "";
+    return true;
+  }
+  checkFieldIsNotEmpty(field: string, id: HTMLInputElement): boolean {
+    if (id === null) return false;
+    if (field === undefined || field === ""){
+      id.innerHTML = "Ce champ doit être renseigné"
+      return false;
+    }
+    return true;
+  }
+  checkFieldIsLetters(field: string, id: HTMLInputElement): boolean {
+    if (!(/^[a-zA-Z]+$/.test(field))) {
+      id.innerHTML = "Ce champ doit contenir uniquement des lettres";
+      return false;
+    }
+    return true;
+  }
+  checkFieldIsNumber(field: string, id: HTMLInputElement): boolean {
+    if (!(/^[0-9]+$/.test(field))) {
+      id.innerHTML = "Ce champ doit contenir uniquement des chiffres";
+      return false;
+    }
+    return true;
+  }
 }

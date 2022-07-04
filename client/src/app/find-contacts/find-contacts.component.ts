@@ -17,10 +17,13 @@ export class FindContactsComponent implements OnInit {
   constructor(private contactService: ContactService, public searchContactService: SearchContactService , private router: Router) { }
 
   ngOnInit(): void {
+    let searchField = <HTMLInputElement>document.getElementById("searchField");
+      searchField.addEventListener('input', (e) => {
+        this.searchContact(searchField);
+      });
   }
 
-  searchContact(){
-    let searchField = <HTMLInputElement>document.getElementById("searchField");
+  searchContact(searchField: HTMLInputElement){
     if (searchField !== null){
       this.searchContactService.name.next(searchField.value);
       this.redirectTo('contacts');
