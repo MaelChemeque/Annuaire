@@ -11,6 +11,10 @@ const ContactSchema = mongoose.Schema({
     phone_number:{
         type: String,
         required: true
+    },
+    email:{
+        type: String,
+        required: false
     }
 });
 const Contact = module.exports = mongoose.model('Contact', ContactSchema);
